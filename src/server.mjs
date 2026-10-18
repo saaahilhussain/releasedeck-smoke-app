@@ -12,7 +12,7 @@ export function createApp() {
       status = 405;
       body = { error: 'method_not_allowed' };
     } else if (path === '/health') {
-      body = { status: 'ok', version: release.version };
+      body = { application: 'releasedeck-smoke-app', status: 'ok', version: release.version };
     } else if (path === '/') {
       body = { application: 'releasedeck-smoke-app', version: release.version, message: 'ReleaseDeck deployment smoke test' };
     } else {
