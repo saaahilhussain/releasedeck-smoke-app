@@ -29,10 +29,10 @@ test('built runtime starts both directly and when imported by a process-manager 
         const port = /listening on 127\.0\.0\.1:(\d+)/.exec(stdout)[1];
         const health = await fetch('http://127.0.0.1:' + port + '/health');
         assert.equal(health.status, 200);
-        assert.deepEqual(await health.json(), { application: 'releasedeck-smoke-app', status: 'ok', version: 'v4' });
+        assert.deepEqual(await health.json(), { application: 'releasedeck-smoke-app', status: 'ok', version: 'v5' });
         const root = await fetch('http://127.0.0.1:' + port + '/');
         assert.equal(root.status, 200);
-        assert.equal((await root.json()).version, 'v4');
+        assert.equal((await root.json()).version, 'v5');
       } finally {
         if (child.exitCode === null) child.kill('SIGTERM');
         await ended;
