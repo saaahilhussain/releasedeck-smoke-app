@@ -1,0 +1,14 @@
+{
+  "name": "releasedeck-smoke-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "test": "node --test test/server.test.mjs",
+    "build": "node build.mjs",
+    "start": "node --env-file-if-exists=.env dist/server.mjs"
+  }
+}

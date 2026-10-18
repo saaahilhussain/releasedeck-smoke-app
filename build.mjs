@@ -1,0 +1,12 @@
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+const release = JSON.parse(await readFile(new URL('./version.json', import.meta.url), 'utf8'));
+if (!/^v[0-9]+$/.test(release.version)) throw new Error('Invalid smoke version');
+const source = await readFile(new URL('./src/server.mjs', import.meta.url), 'utf8');
+const output = source.replace("import release from '../version.json' with { type: 'json' };", 'const release = ' + JSON.stringify(release) + ';');
+if (source === output) throw new Error('Build input contract changed');
+const directory = new URL('./dist/', import.meta.url);
+await mkdir(directory, { recursive: true });
+await writeFile(new URL('server.mjs', directory), output);
+await writeFile(new URL('manifest.json', directory), JSON.stringify({ version: release.version, sha256: createHash('sha256').update(output).digest('hex') }, null, 2) + '\n');
+console.log('Built standalone server: ' + release.version);
