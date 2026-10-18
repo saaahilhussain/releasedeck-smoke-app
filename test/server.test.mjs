@@ -10,10 +10,10 @@ test('HTTP contract exposes version and health, and rejects unknown routes', asy
     const base = 'http://127.0.0.1:' + server.address().port;
     const health = await fetch(base + '/health');
     assert.equal(health.status, 200);
-    assert.deepEqual(await health.json(), { status: 'ok', version: 'v1' });
+    assert.deepEqual(await health.json(), { status: 'ok', version: 'v2' });
     const root = await fetch(base + '/');
     assert.equal(root.status, 200);
-    assert.equal((await root.json()).version, 'v1');
+    assert.equal((await root.json()).version, 'v2');
     assert.equal((await fetch(base + '/missing')).status, 404);
     assert.equal((await fetch(base + '/', { method: 'POST' })).status, 405);
   } finally {
