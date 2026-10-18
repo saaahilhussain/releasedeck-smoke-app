@@ -12,7 +12,8 @@ export function createApp() {
       status = 405;
       body = { error: 'method_not_allowed' };
     } else if (path === '/health') {
-      body = { application: 'releasedeck-smoke-app', status: 'ok', version: release.version };
+      status = 503;
+      body = { application: 'releasedeck-smoke-app', status: 'intentional_unhealthy', version: release.version, reason: 'automatic_restoration_fixture' };
     } else if (path === '/') {
       body = { application: 'releasedeck-smoke-app', version: release.version, message: 'ReleaseDeck deployment smoke test' };
     } else {
